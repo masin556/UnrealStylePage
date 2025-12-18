@@ -1,0 +1,103 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2500;
+    backdrop-filter: blur(2px);
+}
+
+.card {
+    width: 400px;
+    background-color: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    animation: scaleIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    color: var(--text-main);
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.header {
+    background-color: var(--bg-header);
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--border-color);
+    font-weight: bold;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--accent-orange);
+}
+
+.body {
+    padding: 25px 20px;
+    font-size: 14px;
+    color: var(--text-main);
+    line-height: 1.5;
+}
+
+.footer {
+    background-color: var(--bg-input);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    border-top: 1px solid var(--border-color);
+}
+
+.btn {
+    padding: 8px 20px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.cancelBtn {
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+}
+
+.cancelBtn:hover {
+    border-color: var(--text-main);
+    color: var(--text-main);
+}
+
+.confirmBtn {
+    background-color: var(--accent-blue);
+    border: 1px solid var(--accent-blue);
+    color: white;
+}
+
+.confirmBtn:hover {
+    background-color: #0088e0;
+}
+
+.confirmBtn.danger {
+    background-color: #c62828;
+    border-color: #c62828;
+}
+
+.confirmBtn.danger:hover {
+    background-color: #d32f2f;
+}

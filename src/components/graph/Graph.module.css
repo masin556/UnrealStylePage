@@ -1,0 +1,563 @@
+.graphContainer {
+    width: 100%;
+    height: 100%;
+    background-color: #111;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+    position: relative;
+    overflow: hidden;
+    cursor: grab;
+}
+
+.graphContainer:active {
+    cursor: grabbing;
+}
+
+.palette {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: rgba(15, 15, 15, 0.9);
+    border: 1px solid #444;
+    border-radius: 4px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+}
+
+.paletteHeader {
+    font-size: 10px;
+    font-weight: bold;
+    color: #888;
+    margin-bottom: 4px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.palette button {
+    background: #333;
+    border: 1px solid #444;
+    color: #ddd;
+    padding: 6px 12px;
+    font-size: 11px;
+    border-radius: 3px;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s;
+}
+
+.palette button:hover {
+    background: #444;
+    border-color: var(--accent-orange);
+}
+
+.paletteDivider {
+    height: 1px;
+    background: #444;
+    margin: 4px 0;
+}
+
+.exportBtn {
+    background: var(--accent-orange) !important;
+    color: black !important;
+    font-weight: bold;
+}
+
+.hintBox {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 12px;
+    border-radius: 4px;
+    border-left: 4px solid var(--accent-blue);
+    pointer-events: none;
+    color: white;
+}
+
+.liveWire {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent-orange);
+    color: black;
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    box-shadow: 0 0 20px rgba(255, 150, 0, 0.4);
+    pointer-events: none;
+    z-index: 10000;
+}
+
+.nodeCoords {
+    position: absolute;
+    top: -18px;
+    left: 0;
+    font-size: 9px;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.node {
+    position: absolute;
+    width: 280px;
+    background: rgba(15, 15, 15, 0.95);
+    border: 1px solid #333;
+    border-radius: 4px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+    user-select: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    backdrop-filter: blur(8px);
+    z-index: 10;
+}
+
+.varGet {
+    width: 180px !important;
+    border-radius: 20px !important;
+}
+
+.varSet {
+    width: 220px !important;
+}
+
+.editInput {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--accent-orange);
+    color: white;
+    font-size: 11px;
+    padding: 2px 4px;
+    border-radius: 2px;
+    width: 100%;
+}
+
+/* Sequence Node Styles */
+.sequenceNode {
+    width: 160px !important;
+    background: rgba(10, 10, 10, 0.95) !important;
+    border: 1px solid #2a2a2a !important;
+}
+
+.sequenceNode .nodeHeader {
+    background: #1a1a1a !important;
+    border-bottom: 1px solid #2a2a2a !important;
+}
+
+.sequenceNode .nodeContent {
+    padding: 0 !important;
+    border-top: none !important;
+}
+
+/* Project Node Styles */
+.projectNode {
+    width: 320px !important;
+    /* Wider for better preview */
+    border: 1px solid #885500 !important;
+    /* Dark orange border */
+}
+
+.projectPreview {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    cursor: pointer;
+    background: #050505;
+}
+
+.projectThumb {
+    width: 100%;
+    height: 160px;
+    /* Taller image */
+    object-fit: cover;
+    border-bottom: 2px solid #ff9600;
+    opacity: 0.9;
+    transition: opacity 0.2s;
+}
+
+.projectThumb:hover {
+    opacity: 1;
+}
+
+.projectInfo {
+    padding: 12px;
+    background: linear-gradient(to bottom, #111, #080808);
+}
+
+.projectTitle {
+    font-size: 14px;
+    font-weight: bold;
+    color: #ff9600;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.projectShortDesc {
+    font-size: 11px;
+    color: #999;
+    line-height: 1.4;
+    margin-bottom: 8px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.projectClickHint {
+    font-size: 9px;
+    color: #555;
+    text-transform: uppercase;
+    text-align: right;
+    letter-spacing: 0.5px;
+}
+
+.addPinBtn {
+    background: rgba(255, 255, 255, 0.05);
+    border-top: 1px solid #333;
+    padding: 6px 10px;
+    text-align: center;
+    font-size: 10px;
+    color: #aaa;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.addPinBtn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.editTextarea {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid #444;
+    color: #ccc;
+    font-size: 10px;
+    width: 100%;
+    min-height: 40px;
+    padding: 4px;
+    border-radius: 2px;
+    resize: none;
+}
+
+.node.selected {
+    border-color: var(--accent-orange) !important;
+    box-shadow: 0 0 15px rgba(255, 150, 0, 0.4);
+}
+
+.nodeHeader {
+    padding: 6px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.headerLeft {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.iconEvent {
+    width: 10px;
+    height: 10px;
+    background-color: #ff0000;
+    border: 1px solid white;
+    border-radius: 1px;
+    transform: rotate(45deg);
+}
+
+.nodeTitle {
+    text-shadow: 0 1px 2px black;
+}
+
+.deleteNodeBtn {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 2px;
+    border-radius: 3px;
+    transition: all 0.2s;
+}
+
+.deleteNodeBtn:hover {
+    background: rgba(255, 0, 0, 0.4);
+    color: white;
+}
+
+.nodeBody {
+    padding: 8px 0;
+}
+
+.pinSection {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 8px;
+    margin-bottom: 8px;
+}
+
+.inputs,
+.outputs {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.pinWrapper {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: crosshair;
+    padding: 2px 4px;
+    border-radius: 3px;
+    transition: background 0.2s;
+}
+
+.pinWrapper:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.pinWrapper.right {
+    flex-direction: row-reverse;
+}
+
+.pinLabel {
+    font-size: 10px;
+    color: #bbb;
+    font-weight: 500;
+}
+
+.execPin {
+    cursor: crosshair;
+    filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.3));
+}
+
+.dataPin {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.nodeContent {
+    padding: 6px 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.nodeSubtitle {
+    font-size: 9px;
+    color: var(--accent-blue);
+    margin-bottom: 2px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.livePath {
+    stroke-dasharray: 8, 8;
+    animation: marchingAnts 1s linear infinite;
+}
+
+@keyframes marchingAnts {
+    from {
+        stroke-dashoffset: 16;
+    }
+
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+/* Comment Node Styles */
+.commentNode {
+    min-width: 300px;
+    min-height: 200px;
+    background: rgba(0, 0, 0, 0.2) !important;
+    border: 1px solid #555 !important;
+    border-radius: 8px !important;
+    display: flex;
+    flex-direction: column;
+}
+
+.commentNode :global(.nodeHeader) {
+    height: 32px !important;
+    font-size: 14px !important;
+    font-weight: bold;
+    color: #eee;
+    padding: 0 12px;
+}
+
+.commentNode :global(.nodeBody) {
+    flex: 1;
+    position: relative;
+    padding: 12px !important;
+}
+
+.commentNode :global(.nodeDesc) {
+    font-size: 13px !important;
+    color: #ccc !important;
+    line-height: 1.5;
+}
+
+.resizeHandle {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 15px;
+    height: 15px;
+    cursor: nwse-resize;
+    background: linear-gradient(135deg, transparent 50%, #444 50%);
+    border-radius: 0 0 6px 0;
+}
+
+.nodeDesc {
+    font-size: 10px;
+    color: #777;
+    line-height: 1.3;
+    white-space: pre-wrap;
+}
+
+.tickDiamond {
+    width: 12px;
+    height: 12px;
+    background-color: white;
+    transform: rotate(45deg);
+    margin-right: 8px;
+    margin-left: 2px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tickDiamond::after {
+    content: '▶';
+    position: absolute;
+    color: #b61d1d;
+    font-size: 8px;
+    transform: rotate(-45deg) translateX(-1px);
+}
+
+.tickBox {
+    width: 10px;
+    height: 10px;
+    background-color: #400;
+    border: 1px solid #b61d1d;
+    border-radius: 2px;
+    margin-right: 4px;
+}
+
+.funcDiamond {
+    width: 12px;
+    height: 12px;
+    background-color: #29c3ff;
+    transform: rotate(45deg);
+    margin-right: 8px;
+    margin-left: 2px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.funcDiamond::after {
+    content: 'f';
+    position: absolute;
+    color: #000;
+    font-size: 10px;
+    font-family: serif;
+    font-style: italic;
+    transform: rotate(-45deg) translateY(-1px);
+}
+
+.selfBox {
+    background-color: #111;
+    border: 1px solid #666;
+    border-radius: 2px;
+    padding: 0 4px;
+    font-size: 9px;
+    color: #aaa;
+    margin-left: 4px;
+    height: 14px;
+    display: flex;
+    align-items: center;
+}
+
+.compileArea {
+    width: 100%;
+    margin-bottom: 2px;
+    padding: 2px;
+}
+
+.compileBtn {
+    width: 100% !important;
+    background: #444 !important;
+    color: #eee !important;
+    font-size: 11px !important;
+    padding: 6px !important;
+    border: 1px solid #555 !important;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.compileBtn:hover {
+    background: #555 !important;
+}
+
+.needsCompile {
+    background: #7a461d !important;
+    border-color: #e6b12a !important;
+    color: white !important;
+    box-shadow: 0 0 10px rgba(230, 177, 42, 0.3);
+    animation: compilePulse 1.5s infinite;
+}
+
+@keyframes compilePulse {
+    0% {
+        filter: brightness(1);
+    }
+
+    50% {
+        filter: brightness(1.2);
+    }
+
+    100% {
+        filter: brightness(1);
+    }
+}
+
+.paletteDivider {
+    height: 1px;
+    background: #444;
+    margin: 8px 0;
+    width: 100%;
+}
+
+.scalingLayer {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-origin: 0 0;
+    transition: transform 0.1s ease-out;
+}

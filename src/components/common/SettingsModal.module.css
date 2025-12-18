@@ -1,0 +1,158 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    backdrop-filter: blur(4px);
+}
+
+.modal {
+    background-color: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    width: 34.6rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    animation: modalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.header {
+    background-color: var(--bg-header);
+    padding: 1.15rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.title {
+    font-weight: bold;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.closeBtn {
+    background: transparent;
+    color: var(--text-muted);
+}
+
+.closeBtn:hover {
+    color: white;
+}
+
+.section {
+    padding: 1.5rem;
+}
+
+.sectionLabel {
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: var(--accent-orange);
+    margin-bottom: 1.15rem;
+    letter-spacing: 1px;
+}
+
+.themeGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.9rem;
+}
+
+.themeCard {
+    background-color: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 1.15rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.themeCard:hover {
+    border-color: var(--border-light);
+    transform: translateY(-2px);
+}
+
+.themeCard.active {
+    border-color: var(--accent-blue);
+    background-color: rgba(0, 112, 188, 0.1);
+}
+
+.themeIcon {
+    font-size: 1.85rem;
+}
+
+.themeName {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.fontGrid {
+    display: flex;
+    gap: 0.8rem;
+}
+
+.fontBtn {
+    flex: 1;
+    background-color: var(--bg-dark);
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+    padding: 0.6rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.fontBtn:hover {
+    color: white;
+    border-color: var(--border-light);
+}
+
+.fontBtn.active {
+    background-color: var(--accent-blue);
+    color: white;
+    border-color: var(--accent-blue);
+}
+
+.footer {
+    padding: 1.15rem 1.5rem;
+    background-color: var(--bg-header);
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: flex-end;
+}
+
+.saveBtn {
+    background-color: var(--accent-green);
+    color: white;
+    padding: 0.6rem 1.85rem;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.saveBtn:hover {
+    background-color: #5aa135;
+}
