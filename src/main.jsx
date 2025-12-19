@@ -9,17 +9,31 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import { ADMIN_CONFIG } from './config/admin';
 
 // Initialize Kakao SDK
-if (window.Kakao && !window.Kakao.isInitialized()) {
-  window.Kakao.init(ADMIN_CONFIG.kakaoApiKey);
+if (window.Kakao && !window.Kakao.isInitialized() && ADMIN_CONFIG.kakaoApiKey) {
+  try {
+    window.Kakao.init(ADMIN_CONFIG.kakaoApiKey);
+  } catch (err) {
+    console.warn('Kakao initialization failed:', err);
+  }
 }
 
-createRoot(document.getElementById('root')).render(
+const root = createRoot(document.getElementById('root'));
+
+const content = (
+  <ToastProvider>
+    <App />
+    <ToastContainer />
+  </ToastProvider>
+);
+
+root.render(
   <StrictMode>
-    <GoogleOAuthProvider clientId={ADMIN_CONFIG.googleClientId}>
-      <ToastProvider>
-        <App />
-        <ToastContainer />
-      </ToastProvider>
-    </GoogleOAuthProvider>
-  </StrictMode>,
-)
+    {ADMIN_CONFIG.googleClientId ? (
+      <GoogleOAuthProvider clientId={ADMIN_CONFIG.googleClientId}>
+        {content}
+      </GoogleOAuthProvider>
+    ) : (
+      content
+    )}
+  </StrictMode>
+);
